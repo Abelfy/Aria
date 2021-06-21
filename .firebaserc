@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "aria-7c3bf": {
+      "hosting": {
+        "Aria": [
+          "aria-7c3bf"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "aria-7c3bf"
+  }
+}

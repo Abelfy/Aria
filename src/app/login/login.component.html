@@ -1,0 +1,25 @@
+<form *ngIf="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="login()">
+    <p-panel header="Authentification">
+        <ng-template pTemplate="header">
+            Authentifier vous pour accèder à votre fiche de personnage :)
+        </ng-template>
+        <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12">
+                <label for="char-firstname">Email :</label>
+                <input id="char-firstname" type="text" pInputText formControlName="email">
+                <small *ngIf="loginForm.controls['email'].errors">L'email n'est pas correct.</small>
+            </div>
+            <div class="p-field p-col-12">
+                <label for="char-lastname">Password :</label>
+                <p-password formControlName="password"></p-password>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="p-fluid p-formgrid p-grid">
+                <p-button label="Se connecter" class="p-m-auto" [disabled]="!loginForm.valid" (click)="login()"></p-button>
+                <p-button [routerLink]="['/register']" label="S'enregistrer" class="p-m-auto"></p-button>
+            </div>
+        </ng-template>
+    </p-panel>
+</form>
+<p-toast></p-toast>

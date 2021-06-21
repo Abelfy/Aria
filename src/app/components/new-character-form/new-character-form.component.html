@@ -1,0 +1,7 @@
+<div class="content">
+<p-card class="p-m-2">
+    <p-toast></p-toast>
+    <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]='false'></p-steps>
+</p-card>
+<router-outlet name="form"></router-outlet>
+</div>

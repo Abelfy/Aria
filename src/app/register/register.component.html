@@ -1,0 +1,29 @@
+<form *ngIf="registerForm" [formGroup]="registerForm" novalidate (ngSubmit)="register()">
+    <p-panel header="Authentification">
+        <ng-template pTemplate="header">
+            Créer votre compte pour commencer votre fiche de personnage :)
+        </ng-template>
+        <div class="p-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12">
+                <label>Email :</label>
+                <input type="text" pInputText formControlName="email">
+                <small *ngIf="registerForm.controls['email'].errors">L'email n'est pas correct.</small>
+            </div>
+            <div class="p-field p-col-12">
+                <label>Mot de passe :</label>
+                <p-password formControlName="password"></p-password>
+            </div>
+            <div class="p-field p-col-12">
+                <label>Confirmer le mot de passe :</label>
+                <p-password formControlName="passwordConfirm"></p-password>
+                <small *ngIf="registerForm.errors?.mismatch">Les mots de passe ne correspondent pas.</small>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="p-fluid p-formgrid p-grid">
+                <p-button label="Se connecter" class="p-m-auto" [disabled]="!registerForm.valid" (click)="authSrv.SignUp(registerForm.controls['email'].value, registerForm.controls['email'].value)"></p-button>
+                <p-button [routerLink]="['/login']" label="J'ai déja un compte" class="p-m-auto"></p-button>
+            </div>
+        </ng-template>
+    </p-panel>
+</form>
