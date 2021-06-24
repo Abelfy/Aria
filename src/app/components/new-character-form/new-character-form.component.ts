@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { Character } from 'src/app/shared/services/models/character';
+import { Character, Item } from 'src/app/shared/services/models/character';
 
 @Component({
   selector: 'app-new-character-form',
@@ -44,6 +44,8 @@ export class NewCharacterFormComponent implements OnInit {
   createCharacter() {
     this.newCharacter = {
       id: '',
+      healthPoint:0,
+      maxHealthPoint : 0,
       identite: {
         charFirstname: '',
         charLastname: '',
@@ -78,6 +80,9 @@ export class NewCharacterFormComponent implements OnInit {
         stamina: 0,
         strength: 0
       },
+      inventory : new Array<Item>(),
+      notes : '',
+      availableSkillPoints : 80,
       selected: true
     }
   }

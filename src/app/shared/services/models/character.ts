@@ -1,9 +1,14 @@
 export interface Character {
     id : string;
+    healthPoint: number;
+    maxHealthPoint: number;
     identite : Identite;
     stats : Statistique;
     skills : Skill;
+    notes : string;
     selected: boolean;
+    inventory : Item[]
+    availableSkillPoints : number;
 }
 
 export interface Identite {
@@ -41,4 +46,10 @@ export interface Skill {
     healing : number;
     surviving : number;
     stealing : number;
+}
+
+export interface Item {
+    name : string;
+    quantity : number;
+    description : string;
 }

@@ -1,5 +1,5 @@
 <form *ngIf="loginForm" [formGroup]="loginForm" novalidate (ngSubmit)="login()">
-    <p-panel header="Authentification">
+    <p-panel>
         <ng-template pTemplate="header">
             Authentifier vous pour accèder à votre fiche de personnage :)
         </ng-template>
@@ -11,7 +11,7 @@
             </div>
             <div class="p-field p-col-12">
                 <label for="char-lastname">Password :</label>
-                <p-password formControlName="password"></p-password>
+                <p-password formControlName="password" [feedback]="false"></p-password>
             </div>
         </div>
         <ng-template pTemplate="footer">

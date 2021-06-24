@@ -22,8 +22,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm.setValidators(passwordMatchValidator());
      this.registerForm.valueChanges.subscribe(result => {
-      console.log(result);
-      console.log(this.registerForm.errors);
     }) 
   }
 

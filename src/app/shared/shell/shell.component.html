@@ -9,14 +9,11 @@
                     [model]="itemsUser"></p-splitButton>
             </ng-container>
             <ng-template #loginButton>
-                <p-button label="Se connecter" [routerLink]="['login']"></p-button>
+                <p-button label="Non connecté" [routerLink]="['login']"></p-button>
             </ng-template>
         </div>
     </p-toolbar>
 </div>
-<!-- <ng-container *ngIf="authService.userData as user">
-    <pre>{{user | json}}</pre>
-</ng-container> -->
 <p-toast></p-toast>
 <div class="p-d-flex p-jc-center">
     <ng-content></ng-content>

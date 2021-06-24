@@ -2,7 +2,6 @@ import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angu
 
 function passwordMatchValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      console.log('ici')
       return control.get('password')!.value === control.get('passwordConfirm')!.value
        ? null : {'mismatch': true};
     };

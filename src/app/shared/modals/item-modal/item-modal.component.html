@@ -1,0 +1,21 @@
+<form *ngIf='itemForm' [formGroup]='itemForm'>
+    <div class="p-formgroup-inline">
+        <div class="p-field">
+            <label for="itemName" class="p-sr-only">Nom de l'objet</label>
+            <input id="itemName" type="text" pInputText formControlName="name">
+        </div>
+        <div class="p-field">
+            <label for="itemQte" class="p-sr-only">Quantite</label>
+            <p-inputNumber [showButtons]="true" buttonLayout="vertical" inputId="vertical" spinnerMode="vertical"
+                [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="quantity">
+            </p-inputNumber>
+        </div>
+        <div class="p-field">
+            <label for="itemName" class="p-sr-only">Nom de l'objet</label>
+            <input id="itemName" type="text" pInputText formControlName="description">
+        </div>
+
+        <button pButton pRipple type="button" (click)="close()" label="Ajouter"></button>
+    </div>
+</form>

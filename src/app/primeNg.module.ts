@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -23,6 +19,8 @@ import { ToastModule } from 'primeng/toast';
 import { TabViewModule } from 'primeng/tabview';
 import { DataViewModule } from 'primeng/dataview';
 import { StepsModule } from 'primeng/steps';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { KnobModule } from 'primeng/knob';
 
 const modules = [
     PanelModule,
@@ -42,7 +40,9 @@ const modules = [
     ToastModule,
     TabViewModule,
     DataViewModule,
-    StepsModule
+    StepsModule,
+    DynamicDialogModule,
+    KnobModule
 ]
 
 @NgModule({

@@ -28,6 +28,8 @@ import { ConfirmationComponent } from './components/new-character-form/confirmat
 import { IdentiteFormComponent } from './components/new-character-form/identite-form/identite-form.component';
 import { StatsFormComponent } from './components/new-character-form/stats-form/stats-form.component';
 import { SkillsFormComponent } from './components/new-character-form/skills-form/skills-form.component';
+import { ItemModalComponent } from './shared/modals/item-modal/item-modal.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { SkillsFormComponent } from './components/new-character-form/skills-form
     IdentiteFormComponent,
     StatsFormComponent,
     SkillsFormComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    ItemModalComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { SkillsFormComponent } from './components/new-character-form/skills-form
     AuthGuard,
     AuthService,
     MessageService,
+    DialogService,
     { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: true } },
     { provide: USE_DEVICE_LANGUAGE, useValue: true }
   ],

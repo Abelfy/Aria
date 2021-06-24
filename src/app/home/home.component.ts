@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   reloadCharacters() {
     this.charactersSub = this.characterService.loadCharacters().subscribe(characters => {
-      console.log(characters);
       this.characters = characters;
     });
   }

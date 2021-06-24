@@ -23,7 +23,6 @@ export class AuthService {
         /* Saving user data in localstorage when 
         logged in and setting up null when logged out */
         this.afAuth.authState.subscribe(user => {
-            console.log(user);
             if (user) {
                 this.userData = user;
                 localStorage.setItem('user', JSON.stringify(this.userData));
@@ -40,7 +39,6 @@ export class AuthService {
         return this.afAuth.signInWithEmailAndPassword(email, password)
             .then((result) => {
                 //this.SetUserData(result.user);
-                console.log(result);
                 this.ngZone.run(() => {
                     this.router.navigate(['home']);
                 });                

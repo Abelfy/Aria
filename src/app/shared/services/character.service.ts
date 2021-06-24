@@ -35,7 +35,6 @@ export class CharacterService {
 
     createCharacter(data: Character) {
         data.id = this.db.createId();
-        console.log(data.id);
         return this.db.collection(`/users/${this.authService.userData.uid}/characters`).add(data)
     }
 }

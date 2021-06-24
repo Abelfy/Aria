@@ -1,9 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ItemModalComponent } from 'src/app/shared/modals/item-modal/item-modal.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { CharacterService } from '../../shared/services/character.service';
 import { Character } from '../../shared/services/models/character';
@@ -23,6 +25,7 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
   idForm: FormGroup;
   statsForm: FormGroup;
   skillsForm: FormGroup;
+  notes: string;
   editState: boolean;
   queryParamsSub: Subscription;
 
@@ -31,6 +34,8 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private characterService: CharacterService,
     private messageService: MessageService,
+    public dialogService: DialogService,
+    private cd: ChangeDetectorRef,
     private route: ActivatedRoute) {
   }
 
@@ -38,14 +43,19 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.queryParamsSub = this.route.queryParams.subscribe(params => {
       this.characterService.getCharacterById(params.id).subscribe(character => {
-        console.log(character);
+
         this.currentCharacter = character;
+        this.notes = this.currentCharacter.notes;
+        this.currentCharacter.inventory = character.inventory
+
         this.idForm = this.fb.group({
           charFirstname: [this.currentCharacter.identite.charFirstname, Validators.required],
           charLastname: [this.currentCharacter.identite.charLastname, Validators.required],
           age: [this.currentCharacter.identite.age, Validators.required],
+          healthPoint: [this.currentCharacter.healthPoint, Validators.required],
+          maxHealthPoint: [this.currentCharacter.maxHealthPoint, Validators.required],
         })
-    
+
         this.statsForm = this.fb.group({
           strength: [this.currentCharacter.stats?.strength ? this.currentCharacter.stats.strength : 0, Validators.required],
           dexterity: [this.currentCharacter.stats?.dexterity ? this.currentCharacter.stats.dexterity : 0, Validators.required],
@@ -53,7 +63,7 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
           intelligence: [this.currentCharacter.stats?.intelligence ? this.currentCharacter.stats.intelligence : 0, Validators.required],
           charisma: [this.currentCharacter.stats?.charisma ? this.currentCharacter.stats.charisma : 0, Validators.required],
         })
-    
+
         this.skillsForm = this.fb.group({
           craft: [this.currentCharacter.skills?.craft ? this.currentCharacter.skills.craft : 0, Validators.required],
           closeCombat: [this.currentCharacter.skills?.closeCombat ? this.currentCharacter.skills.closeCombat : 0, Validators.required],
@@ -75,15 +85,19 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
           healing: [this.currentCharacter.skills?.healing ? this.currentCharacter.skills.healing : 0, Validators.required],
           surviving: [this.currentCharacter.skills?.surviving ? this.currentCharacter.skills.surviving : 0, Validators.required],
           stealing: [this.currentCharacter.skills?.stealing ? this.currentCharacter.skills.stealing : 0, Validators.required],
-        })
-    
+        });
+
+
         this.form = this.fb.array([
           this.idForm,
           this.statsForm,
           this.skillsForm
-        ]);   
+        ]);
+
         this.form.disable();
         this.form.valueChanges.subscribe(values => {
+          this.currentCharacter.healthPoint = values[0].healthPoint;
+          this.currentCharacter.maxHealthPoint = values[0].maxHealthPoint;
           this.currentCharacter.identite = values[0];
           this.currentCharacter.stats = values[1];
           this.currentCharacter.skills = values[2];
@@ -122,14 +136,29 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
     if (this.form.disabled) {
       this.form.enable();
     } else {
-        this.characterService.updateCharacter(this.currentCharacter).then(_ => {
-          this.messageService.add({severity:'success', summary:'Mise à jour', detail: 'Le personnage à été mis à jour.'});
-          this.form.disable();
-        });
+      this.currentCharacter.notes = this.notes;
+      this.characterService.updateCharacter(this.currentCharacter).then(_ => {
+        this.messageService.add({ severity: 'success', summary: 'Mise à jour', detail: 'Le personnage à été mis à jour.' });
+        this.form.disable();
+      });
+    }
+  }
+
+  showItemModal() {
+    if (this.form.enabled) {
+      const ref = this.dialogService.open(ItemModalComponent, {
+        header: 'Ajouter un objet à votre iventaire',
+        width: '50%'
+      });
+      ref.onClose.subscribe(item => {
+        this.currentCharacter.inventory = [...this.currentCharacter.inventory,item];
+      })
     }
   }
 
   ngOnDestroy(): void {
-    this.queryParamsSub.unsubscribe();
+    if (this.queryParamsSub) {
+      this.queryParamsSub.unsubscribe();
+    }
   }
 }
