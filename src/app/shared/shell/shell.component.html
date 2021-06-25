@@ -1,12 +1,20 @@
 <div class="p-mb-4">
     <p-toolbar>
         <div class="p-toolbar-group-left">
-            <h3><div class="p-text-left" style="color: #fff ;">Aria</div></h3>
+            <h3>
+                <div class="p-text-left" style="color: #fff ;">Aria</div>
+            </h3>
         </div>
         <div class="p-toolbar-group-right">
-            <ng-container *ngIf="authService.userData as user;else loginButton">
-                <p-splitButton label="{{(user.email) ? user.email : 'User'}}" icon="pi pi-check"
-                    [model]="itemsUser"></p-splitButton>
+            
+            <ng-container *ngIf="(authService.isLoggedIn$ | async) as user;else loginButton">
+                <ng-container *ngIf="(authService.pictureUrl$ | async) as pictureUrl">
+                    <p-avatar [image]="pictureUrl" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>
+                </ng-container>
+                <ng-container *ngIf="authService.userData">
+                    <p-splitButton label="{{authService.userData.email}}" icon="pi pi-check"
+                        [model]="itemsUser"></p-splitButton>
+                </ng-container>
             </ng-container>
             <ng-template #loginButton>
                 <p-button label="Non connecté" [routerLink]="['login']"></p-button>
@@ -14,7 +22,7 @@
         </div>
     </p-toolbar>
 </div>
-<p-toast></p-toast>
+<p-toast position="bottom-center" key="bc"></p-toast>
 <div class="p-d-flex p-jc-center">
     <ng-content></ng-content>
 </div>

@@ -1,17 +1,28 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from "../services/user";
+import { User } from "./models/user";
 import auth from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { MessageService } from 'primeng/api';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthInfo } from './models/authInfo';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
+
+    static UNKNOWN_USER = new AuthInfo(null);
+
     userData: any; // Save logged in user data
+
+    isLoggedIn$: Observable<boolean>;
+    isLoggedOut$ : Observable<boolean>;
+    pictureUrl$ : Observable<string>;
+    authInfo$: BehaviorSubject<AuthInfo>;
 
     constructor(
         public afs: AngularFirestore,   // Inject Firestore service
@@ -31,14 +42,23 @@ export class AuthService {
                 localStorage.setItem('user', null);
                 this.userData = JSON.parse(localStorage.getItem('user'));
             }
-        })
+        });
+        this.authInfo$ = new BehaviorSubject<AuthInfo>(AuthService.UNKNOWN_USER);
+
+        this.isLoggedIn$ = afAuth.authState.pipe(map(user=> !!user));
+
+        this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
+
+        this.pictureUrl$ = afAuth.authState.pipe(map(user => user ? user.photoURL : null));
+
     }
 
     // Sign in with email/password
     SignIn(email: string, password: string) {
         return this.afAuth.signInWithEmailAndPassword(email, password)
             .then((result) => {
-                //this.SetUserData(result.user);
+                this.SetUserData(result.user);
+                this.messageService.add({key: 'bc', severity: 'success', summary: 'Vous êtes connecté ! '});
                 this.ngZone.run(() => {
                     this.router.navigate(['home']);
                 });                
@@ -81,10 +101,10 @@ export class AuthService {
     }
 
     // Returns true when user is looged in and email is verified
-    get isLoggedIn(): boolean {
+    /* get isLoggedIn(): boolean {
         const user = JSON.parse(localStorage.getItem('user'));
         return (user !== null && user.emailVerified !== false) ? true : false;
-    }
+    } */
 
     // Auth logic to run auth providers
     AuthLogin(provider) {
@@ -102,6 +122,7 @@ export class AuthService {
     provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
     SetUserData(user) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+        console.log(user);
         const userData: User = {
             uid: user.uid,
             email: user.email,
@@ -120,5 +141,25 @@ export class AuthService {
             localStorage.removeItem('user');
             this.router.navigate(['sign-in']);
         })
+    }
+
+    fromFirebaseAuthPromise(promise):Observable<any> {
+
+        const subject = new Subject<any>();
+
+        promise
+            .then(res => {
+                    //const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid);
+                    //this.authInfo$.next(authInfo);
+                    subject.next(res);
+                    subject.complete();
+                },
+                err => {
+                    this.authInfo$.error(err);
+                    subject.error(err);
+                    subject.complete();
+                });
+
+        return subject.asObservable();
     }
 }

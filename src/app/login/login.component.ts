@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -20,11 +21,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authSrv : AuthService,
+    private messageService: MessageService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
     // reset login status
-    this.authSrv.SignOut();
+    this.authSrv.SignOut()
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -32,6 +34,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     const { email, password } = this.loginForm.value;
-    this.authSrv.SignIn(email,password)
+    this.authSrv.SignIn(email,password).then( () =>{
+      //this.messageService.add({ severity: 'success', summary: 'Vous êtes connecté ! '});
+    });
   }
 }

@@ -26,12 +26,13 @@
             </p-inputNumber>
           </div>
         </div>
-        <div class="p-grid"> 
+        <div class="p-grid">
           <div class="p-field p-col">
             <label>HP :</label>
             <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
               decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="healthPoint" [max]="currentCharacter.maxHealthPoint">
+              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="healthPoint"
+              [max]="currentCharacter.maxHealthPoint">
             </p-inputNumber>
           </div>
           <div class="p-field p-col">
@@ -44,10 +45,14 @@
         </div>
       </div>
     </form>
-    <div class="p-field p-col-12 p-md-4">
-      <h5 class="p-mt-3">Points de vie :</h5>
-      <p-knob [(ngModel)]="currentCharacter.healthPoint" [min]="0" [max]="currentCharacter.maxHealthPoint" valueColor="#db2140" [valueTemplate]="currentCharacter.healthPoint+'/'+currentCharacter.maxHealthPoint"></p-knob>
-    </div>
+    <ng-container *ngIf='currentCharacter && currentCharacter.healthPoint && currentCharacter.maxHealthPoint'>
+      <div class="p-field p-col-12 p-md-4">
+        <h5 class="p-mt-3">Points de vie :</h5>
+        <p-knob [(ngModel)]="currentCharacter.healthPoint" [min]="0" [max]="currentCharacter.maxHealthPoint"
+          valueColor="#db2140" [valueTemplate]="currentCharacter.healthPoint+'/'+currentCharacter.maxHealthPoint" [readonly]="true">
+        </p-knob>
+      </div>
+    </ng-container>
     <p-tabView>
       <p-tabPanel header="Caractéristiques">
         <form *ngIf="statsForm" [formGroup]="statsForm">
@@ -259,38 +264,13 @@
         </div>
       </p-tabPanel>
       <p-tabPanel header="Inventaire">
-        <p-card class="p-m-2">
-          <p-dataView #dv [value]="currentCharacter.inventory" [lazy]=true>
-            <ng-template pTemplate="header">
-              Liste de vos objects
-              <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-                <p-button icon="pi pi-plus" (click)="showItemModal()" [disabled]="form.disabled"></p-button>
-              </div>
-            </ng-template>
-            <ng-template let-item pTemplate="listItem">
-              <div class="item-list-item">
-                <div class="item-list-detail">
-                  <div class="item-name">
-                    Nom : {{item.name}}
-                  </div>
-                  <div>
-                    Quantité : {{item.quantity}}
-                  </div>
-                  <div>
-                    Description : {{item.description}}
-                  </div>
-                </div>
-                <div class="item-list-action">
-                  <p-button icon="pi pi-trash" [disabled]="true"></p-button>
-                </div>
-              </div>
-            </ng-template>
-          </p-dataView>
-        </p-card>
+        <ng-container *ngIf='form'>
+          <app-inventory [disabled]="form.disabled"></app-inventory>
+        </ng-container>
       </p-tabPanel>
       <p-tabPanel header="Notes">
         <p-card class="p-m-2" header="Notes">
-          <textarea [disabled]="form.disabled" pInputTextarea [(ngModel)]="notes"></textarea>
+          <textarea *ngIf='form' [disabled]="form.disabled" pInputTextarea [(ngModel)]="notes"></textarea>
         </p-card>
       </p-tabPanel>
     </p-tabView>

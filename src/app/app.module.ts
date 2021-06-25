@@ -30,6 +30,8 @@ import { StatsFormComponent } from './components/new-character-form/stats-form/s
 import { SkillsFormComponent } from './components/new-character-form/skills-form/skills-form.component';
 import { ItemModalComponent } from './shared/modals/item-modal/item-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { InventoryComponent } from './components/character-sheet/inventory/inventory.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { DialogService } from 'primeng/dynamicdialog';
     StatsFormComponent,
     SkillsFormComponent,
     ConfirmationComponent,
-    ItemModalComponent
+    ItemModalComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,9 @@ import { DialogService } from 'primeng/dynamicdialog';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    PrimeNGModule
+    PrimeNGModule,
+    ToastModule
+
   ],
   providers: [
     AuthGuard,

@@ -1,0 +1,37 @@
+.listItem-header {
+    display: flex;
+    flex-direction: row;
+}
+.item-list-item {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 1rem;
+    width: 100%;
+
+    img {
+        width: 150px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin-right: 2rem;
+    }
+
+    .item-list-detail {
+        flex: 1 1 0;
+        .item-name {
+            font-size: 1.3em;
+        }
+    }
+
+    .p-rating {
+        margin: 0 0 .5rem 0;
+    }
+
+    .item-list-action {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .p-button {
+        margin-bottom: .5rem;
+    }
+}

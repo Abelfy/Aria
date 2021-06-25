@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class ShellComponent implements OnInit {
 
   itemsUser: MenuItem[] = new Array<MenuItem>();
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService,public messageService: MessageService) { }
 
   ngOnInit(): void {
     this.itemsUser = [

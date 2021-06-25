@@ -1,0 +1,42 @@
+<p-card class="p-m-2">
+    <ng-container *ngIf="items">
+        <p-dataView #dv [value]="items" [lazy]=true [loading]="loading">
+            <ng-template pTemplate="header">
+                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                    Liste de vos objects
+                    <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Rechercher par nom.">
+                    </span>
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                        <p-button icon="pi pi-plus" (click)="showItemModal()" [disabled]="disabled"></p-button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template let-item pTemplate="listItem">
+                <div class="item-list-item">
+                    <div class="item-list-detail">
+                        <div class="item-name">
+                            <span class="p-text-italic">Nom :</span> {{item.name}}
+                        </div>
+                        <div>
+                            <span class="p-text-italic">Type :</span>
+                        </div>
+                        <div>
+                            <span class="p-text-italic">Quantité :</span> {{item.quantity}}
+                        </div>
+                        <div>
+                            <span class="p-text-italic">Description :</span> {{item.description}}
+                        </div>
+                    </div>
+                    <div class="item-list-action">
+                        <p-button class="p-m-2" icon="pi pi-pencil" (click)="updateItem(item)" [disabled]="disabled">
+                        </p-button>
+                        <p-button class="p-m-2" icon="pi pi-trash" (click)="deleteItem(item)" [disabled]="disabled">
+                        </p-button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+    </ng-container>
+</p-card>

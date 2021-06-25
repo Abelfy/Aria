@@ -21,6 +21,9 @@ import { DataViewModule } from 'primeng/dataview';
 import { StepsModule } from 'primeng/steps';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { KnobModule } from 'primeng/knob';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+
 
 const modules = [
     PanelModule,
@@ -37,12 +40,13 @@ const modules = [
     RatingModule,
     ToolbarModule,
     PasswordModule,
-    ToastModule,
     TabViewModule,
     DataViewModule,
     StepsModule,
     DynamicDialogModule,
-    KnobModule
+    KnobModule,
+    AvatarModule,
+    AvatarGroupModule
 ]
 
 @NgModule({

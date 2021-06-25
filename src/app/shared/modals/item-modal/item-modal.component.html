@@ -12,10 +12,10 @@
             </p-inputNumber>
         </div>
         <div class="p-field">
-            <label for="itemName" class="p-sr-only">Nom de l'objet</label>
-            <input id="itemName" type="text" pInputText formControlName="description">
+            <label for="itemDescription" class="p-sr-only">Nom de l'objet</label>
+            <input id="itemDescription" type="text" pInputText formControlName="description">
         </div>
 
-        <button pButton pRipple type="button" (click)="close()" label="Ajouter"></button>
+        <button pButton pRipple type="button" (click)="close()" label="{{config.data ? 'Modifier' :'Ajouter'}}"></button>
     </div>
 </form>

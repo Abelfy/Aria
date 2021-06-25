@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 import { ItemModalComponent } from 'src/app/shared/modals/item-modal/item-modal.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { CharacterService } from '../../shared/services/character.service';
-import { Character } from '../../shared/services/models/character';
+import { Character, Item } from '../../shared/services/models/character';
 
 @Component({
   selector: 'app-character-sheet',
@@ -35,7 +35,6 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
     private characterService: CharacterService,
     private messageService: MessageService,
     public dialogService: DialogService,
-    private cd: ChangeDetectorRef,
     private route: ActivatedRoute) {
   }
 
@@ -148,10 +147,35 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
     if (this.form.enabled) {
       const ref = this.dialogService.open(ItemModalComponent, {
         header: 'Ajouter un objet à votre iventaire',
+        closeOnEscape : true,
         width: '50%'
       });
       ref.onClose.subscribe(item => {
-        this.currentCharacter.inventory = [...this.currentCharacter.inventory,item];
+        if(item){
+          this.messageService.add({severity:'info', summary: 'Object ajouté', detail: "N'oublier pas de sauvegarder votre personnage. :)"});
+          this.currentCharacter.inventory = [...this.currentCharacter.inventory,item];
+        }
+      })
+    }
+  }
+
+  updateItem(item : Item){
+    if (this.form.enabled) {
+      const ref = this.dialogService.open(ItemModalComponent, {
+        data: item,
+        header: 'Modifier un objet de votre iventaire',
+        closeOnEscape : true,
+        width: '50%'
+      });
+      ref.onClose.subscribe((item : Item) => {
+        if(item){
+          this.messageService.add({severity:'info', summary: 'Object modifié', detail: "Pensez à sauvegarder votre personnage. :)"});
+          const index = this.currentCharacter.inventory.findIndex(value => value == item)
+          console.log(this.currentCharacter.inventory[index])
+          this.currentCharacter.inventory.splice(index,1);
+          this.currentCharacter.inventory = [...this.currentCharacter.inventory,item];
+          console.log(this.currentCharacter.inventory)
+        }
       })
     }
   }
