@@ -54,3 +54,10 @@ export interface Item {
     quantity : number;
     description : string;
 }
+
+export interface SpecialSkill {
+    id : string;
+    name : string;
+    value : number;
+    description : string;
+}

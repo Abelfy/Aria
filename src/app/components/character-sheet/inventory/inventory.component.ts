@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { concat, merge } from 'rxjs';
 import { ItemModalComponent } from 'src/app/shared/modals/item-modal/item-modal.component';
 import { ItemService } from 'src/app/shared/services/item.service';
 import { Item } from 'src/app/shared/services/models/character';
@@ -10,7 +9,8 @@ import { Item } from 'src/app/shared/services/models/character';
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.scss']
+  styleUrls: ['./inventory.component.scss'],
+  providers: [MessageService]
 })
 export class InventoryComponent implements OnInit {
 
@@ -28,7 +28,6 @@ export class InventoryComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
     this.route.queryParams.subscribe(params => {
       this.characterId = params.id;
       this.loading = true;
@@ -49,7 +48,7 @@ export class InventoryComponent implements OnInit {
       ref.onClose.subscribe(item => {
         if (item) {
           this.itemService.createItem(this.characterId, item)
-          this.messageService.add({ severity: 'info', summary: 'Object ajouté'});
+          this.messageService.add({key : 'bc', severity: 'info', summary: 'Object ajouté'});
           this.items = [...this.items, item];
         }
       })
@@ -66,16 +65,11 @@ export class InventoryComponent implements OnInit {
       });
       ref.onClose.subscribe((item: Item) => {
         if (item) {
-          this.messageService.add({ severity: 'info', summary: 'Object modifié'});
+          this.messageService.add({key : 'bc', severity: 'info', summary: 'Object modifié'});
           const index = this.items.findIndex(value => value.id == item.id)
           this.items.splice(index, 1);
           this.items = [...this.items, item];
           this.itemService.updateItem(this.characterId, item).then(result => {
-            /* this.loading = true;
-            this.itemService.loadCharacterItems(this.characterId).subscribe(items => {
-              this.items = items;
-              this.loading = false
-            }); */
           });
         }
       })
@@ -88,9 +82,8 @@ export class InventoryComponent implements OnInit {
         const index = this.items.findIndex(value => value.id == item.id)
         this.items.splice(index, 1);
         this.items = [...this.items];
-        this.messageService.add({ severity: 'info', summary: 'Object supprimé'});
+        this.messageService.add({key : 'bc',  severity: 'info', summary: 'Object supprimé'});
       })
     }
-
   }
 }

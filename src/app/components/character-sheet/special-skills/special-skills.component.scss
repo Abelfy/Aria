@@ -1,10 +1,11 @@
-p-card{
-    width: 50vw;
+.list-specialSkill-header {
+    display: flex;
+    flex-direction: row;
 }
-
-.character-list-item {
+.specialSkill-list-item {
     display: flex;
     align-items: center;
+    justify-items: center;
     padding: 1rem;
     width: 100%;
 
@@ -14,17 +15,16 @@ p-card{
         margin-right: 2rem;
     }
 
-    .character-list-detail {
+    .specialSkill-list-detail {
         flex: 1 1 0;
+        .item-name {
+            font-size: 1.3em;
+        }
     }
 
-    .p-rating {
-        margin: 0 0 .5rem 0;
-    }
-
-    .character-list-action {
+    .specialSkill-list-action {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .p-button {

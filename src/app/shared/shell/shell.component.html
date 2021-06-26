@@ -1,12 +1,9 @@
 <div class="p-mb-4">
     <p-toolbar>
         <div class="p-toolbar-group-left">
-            <h3>
-                <div class="p-text-left" style="color: #fff ;">Aria</div>
-            </h3>
+            <p-button label="Aria" styleClass="p-button-link" [routerLink]="['']"></p-button>
         </div>
         <div class="p-toolbar-group-right">
-            
             <ng-container *ngIf="(authService.isLoggedIn$ | async) as user;else loginButton">
                 <ng-container *ngIf="(authService.pictureUrl$ | async) as pictureUrl">
                     <p-avatar [image]="pictureUrl" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>

@@ -32,6 +32,8 @@ import { ItemModalComponent } from './shared/modals/item-modal/item-modal.compon
 import { DialogService } from 'primeng/dynamicdialog';
 import { InventoryComponent } from './components/character-sheet/inventory/inventory.component';
 import { ToastModule } from 'primeng/toast';
+import { SpecialSkillsComponent } from './components/character-sheet/special-skills/special-skills.component';
+import { SpecialSkillModalComponent } from './shared/modals/special-skill-modal/special-skill-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ToastModule } from 'primeng/toast';
     SkillsFormComponent,
     ConfirmationComponent,
     ItemModalComponent,
-    InventoryComponent
+    InventoryComponent,
+    SpecialSkillsComponent,
+    SpecialSkillModalComponent
   ],
   imports: [
     BrowserModule,

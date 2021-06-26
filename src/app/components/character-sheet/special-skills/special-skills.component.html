@@ -1,0 +1,38 @@
+<p-card class="p-m-2">
+    <ng-container *ngIf="specialSkills">
+        <p-dataView #dv [value]="specialSkills" [lazy]=true [loading]="loading" filterBy="name">
+            <ng-template pTemplate="header">
+                <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                    <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Rechercher par nom." (input)="dv.filter($event.target.value)">
+                    </span>
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                        <p-button icon="pi pi-plus" (click)="showSpecialSkillModal()" [disabled]="disabled"></p-button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template let-specialSkill pTemplate="listItem">
+                <div class="specialSkill-list-item">
+                    <div class="specialSkill-list-detail">
+                        <div class="specialSkill-name">
+                            <span class="p-text-italic">Nom :</span> {{specialSkill.name}}
+                        </div>
+                        <div>
+                            <span class="p-text-italic">Quantité :</span> {{specialSkill.value}}
+                        </div>
+                        <div>
+                            <span class="p-text-italic">Description :</span> {{specialSkill.description}}
+                        </div>
+                    </div>
+                    <div class="specialSkill-list-action">
+                        <p-button class="p-m-2" icon="pi pi-pencil" (click)="updateSpecialSkill(specialSkill)" [disabled]="disabled">
+                        </p-button>
+                        <p-button class="p-m-2" icon="pi pi-trash" (click)="deleteSpecialSkill(specialSkill)" [disabled]="disabled">
+                        </p-button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+    </ng-container>
+</p-card>

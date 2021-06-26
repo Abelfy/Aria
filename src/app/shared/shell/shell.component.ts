@@ -5,7 +5,8 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  styleUrls: ['./shell.component.scss'],
+  providers: [AuthService]
 })
 export class ShellComponent implements OnInit {
 

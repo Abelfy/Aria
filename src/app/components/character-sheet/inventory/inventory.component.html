@@ -1,12 +1,11 @@
 <p-card class="p-m-2">
     <ng-container *ngIf="items">
-        <p-dataView #dv [value]="items" [lazy]=true [loading]="loading">
+        <p-dataView #dv [value]="items" [lazy]=true [loading]="loading" filterBy="name">
             <ng-template pTemplate="header">
                 <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-                    Liste de vos objects
                     <span class="p-input-icon-left p-mb-2 p-mb-md-0">
                         <i class="pi pi-search"></i>
-                        <input type="search" pInputText placeholder="Rechercher par nom.">
+                        <input type="search" pInputText placeholder="Rechercher par nom." (input)="dv.filter($event.target.value)">
                     </span>
                     <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
                         <p-button icon="pi pi-plus" (click)="showItemModal()" [disabled]="disabled"></p-button>

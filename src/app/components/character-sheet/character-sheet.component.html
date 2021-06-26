@@ -49,7 +49,8 @@
       <div class="p-field p-col-12 p-md-4">
         <h5 class="p-mt-3">Points de vie :</h5>
         <p-knob [(ngModel)]="currentCharacter.healthPoint" [min]="0" [max]="currentCharacter.maxHealthPoint"
-          valueColor="#db2140" [valueTemplate]="currentCharacter.healthPoint+'/'+currentCharacter.maxHealthPoint" [readonly]="true">
+          valueColor="#db2140" [valueTemplate]="currentCharacter.healthPoint+'/'+currentCharacter.maxHealthPoint"
+          [readonly]="true">
         </p-knob>
       </div>
     </ng-container>
@@ -102,165 +103,179 @@
         </form>
       </p-tabPanel>
       <p-tabPanel header="Compétences">
-        <div class="p-d-flex p-jc-center">
-          <p-panel class="p-m-auto"
-            header="Compétences normales : restants : {{currentCharacter?.availableSkillPoints}}">
-            <form *ngIf='skillsForm' [formGroup]="skillsForm">
-              <div class="p-fluid p-formgrid p-grid">
-                <div class="p-field p-col">
-                  <div class="p-field">
-                    <label for="craft">Artisanat, construire :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="craft">
-                    </p-inputNumber>
+        <div class="p-grid p-ai-stretch vertical-container">
+          <div class="p-col">
+            <div class="box box-stretched">
+              <p-panel header="Compétences normales : restants : {{currentCharacter?.availableSkillPoints}}">
+                <form *ngIf='skillsForm' [formGroup]="skillsForm">
+                  <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col">
+                      <div class="p-field">
+                        <label for="craft">Artisanat, construire :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="craft">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="CC">Combat rapproché :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="closeCombat">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="RC">Combat à distance :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="rangeCombat">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="intell">Connaissance de la nature : </label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="natureKnowing"></p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Connaissance des secrets :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="secretKnowing"></p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Courir, sauter :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="runJump">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Discretion :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="stealth">
+                        </p-inputNumber>
+                      </div>
+                    </div>
+                    <div class="p-field p-col">
+                      <div class="p-field">
+                        <label for="charisma">Droit :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="law">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Esquive :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="dodge">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Intimider :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="intimidating">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Lire écrire :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="readWrite">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Mentir Convaincre :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="deception">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Perception :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="perception">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Piloter :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="driving">
+                        </p-inputNumber>
+                      </div>
+                    </div>
+                    <div class="p-field p-col">
+                      <div class="p-field">
+                        <label for="charisma">Psychologie :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="psychology">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Réflexes :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="reflexes">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Serrures et pièges :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="picklocking">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Soigner :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="healing">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Survie :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                          formControlName="surviving">
+                        </p-inputNumber>
+                      </div>
+                      <div class="p-field">
+                        <label for="charisma">Voler :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                          [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                          incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="stealing">
+                        </p-inputNumber>
+                      </div>
+                    </div>
                   </div>
-                  <div class="p-field">
-                    <label for="CC">Combat rapproché :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="closeCombat">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="RC">Combat à distance :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="rangeCombat">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="intell">Connaissance de la nature : </label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
-                      formControlName="natureKnowing"></p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Connaissance des secrets :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
-                      formControlName="secretKnowing"></p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Courir, sauter :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="runJump">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Discretion :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="stealth">
-                    </p-inputNumber>
-                  </div>
-                </div>
-                <div class="p-field p-col">
-                  <div class="p-field">
-                    <label for="charisma">Droit :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="law">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Esquive :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="dodge">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Intimider :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="intimidating">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Lire écrire :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="readWrite">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Mentir Convaincre :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="deception">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Perception :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="perception">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Piloter :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="driving">
-                    </p-inputNumber>
-                  </div>
-                </div>
-                <div class="p-field p-col">
-                  <div class="p-field">
-                    <label for="charisma">Psychologie :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="psychology">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Réflexes :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="reflexes">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Serrures et pièges :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="picklocking">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Soigner :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="healing">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Survie :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="surviving">
-                    </p-inputNumber>
-                  </div>
-                  <div class="p-field">
-                    <label for="charisma">Voler :</label>
-                    <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
-                      decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
-                      incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="stealing">
-                    </p-inputNumber>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </p-panel>
-          <p-panel class="p-m-auto" header="Compétences spéciales">
-            <div class="p-fluid p-formgrid p-grid">
-
+                </form>
+              </p-panel>
             </div>
-          </p-panel>
+          </div>
+          <div class="p-col">
+            <div class="box box-stretched">
+              <p-panel header="Compétences spéciales">
+                <app-special-skills></app-special-skills>
+              </p-panel>
+            </div>
+          </div>
         </div>
       </p-tabPanel>
       <p-tabPanel header="Inventaire">

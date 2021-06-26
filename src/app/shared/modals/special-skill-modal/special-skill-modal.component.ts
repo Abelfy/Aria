@@ -3,27 +3,27 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'app-item-modal',
-  templateUrl: './item-modal.component.html',
-  styleUrls: ['./item-modal.component.scss']
+  selector: 'app-special-skill-modal',
+  templateUrl: './special-skill-modal.component.html',
+  styleUrls: ['./special-skill-modal.component.scss']
 })
-export class ItemModalComponent implements OnInit {
+export class SpecialSkillModalComponent implements OnInit {
 
-  itemForm: FormGroup;
+  specialSkillForm: FormGroup;
 
   constructor(private fb: FormBuilder, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
 
   ngOnInit(): void {
-
-    this.itemForm = this.fb.group({
+    this.specialSkillForm = this.fb.group({
       name: [this.config.data ? this.config.data.name : '', Validators.required],
-      quantity: [this.config.data ? this.config.data.quantity : 0, Validators.required],
+      value: [this.config.data ? this.config.data.value : 0, Validators.required],
       description: [this.config.data ? this.config.data.description : ""]
     }
     )
   }
 
   close() {
-    this.ref.close({...this.itemForm.value,id : this.config.data?.id ? this.config.data?.id : null });
+    this.ref.close({...this.specialSkillForm.value,id : this.config.data?.id ? this.config.data?.id : null });
   }
+
 }
