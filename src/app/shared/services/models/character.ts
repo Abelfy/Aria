@@ -1,20 +1,27 @@
+import { DocumentReference } from "@angular/fire/firestore";
+import * as firebase from 'firebase';
+import { User } from "./user";
+
 export interface Character {
-    id : string;
-    healthPoint: number;
-    maxHealthPoint: number;
+    owner : DocumentReference<User>,
+    id?: string;
     identite : Identite;
-    stats : Statistique;
-    skills : Skill;
-    notes : string;
-    selected: boolean;
-    inventory : Item[]
-    availableSkillPoints : number;
+    stats?: Statistique;
+    skills?: Skill;
+    notes?: string;
+    inventory?: Item[];
+    availableSkillPoints?: number;
+    createdAt?: firebase.default.firestore.Timestamp;
+    updatedAt?: firebase.default.firestore.Timestamp;
+    updatedBy?: DocumentReference<User>;
 }
 
 export interface Identite {
     charFirstname : string;
     charLastname : string;
     age : number;
+    healthPoint?: number;
+    maxHealthPoint?: number;
 }
 
 export interface Statistique {

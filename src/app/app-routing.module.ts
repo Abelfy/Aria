@@ -18,8 +18,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule), canActivate: [AuthGuard] },
+  { path: 'administration', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard] },
   { path: 'verify-email-address', component: VerifyEmailComponent },
-  { path: 'character', component: CharacterSheetComponent,canActivate: [AuthGuard]},
+  { path: 'character', component: CharacterSheetComponent, canActivate: [AuthGuard]},
   { path: 'new/character', component: NewCharacterFormComponent,canActivate: [AuthGuard], children : [
     { path: 'identite', component: IdentiteFormComponent,outlet: 'form'  },
     { path: 'stats', component: StatsFormComponent,outlet: 'form'  },

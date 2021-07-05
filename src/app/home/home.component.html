@@ -1,5 +1,5 @@
 <p-card class="p-m-2" header="Vos personnages" subheader="Vous pouvez ajouter autant de personnages que vous souhaitez.">
-  <p-dataView #dv [value]="characters" filterBy="identite.charFirstname">
+  <p-dataView #dv [value]="characters | async" filterBy="identite.charFirstname">
     <ng-template pTemplate="header">
       <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
         <span class="p-input-icon-left p-mb-2 p-mb-md-0">
@@ -7,7 +7,7 @@
           <input type="search" pInputText placeholder="Rechercher par nom." (input)="dv.filter($event.target.value)">
         </span>
         <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-          <p-button label="Nouveau personnage" [routerLink]="['new/character']" icon="pi pi-plus" iconPos="right">
+          <p-button label="Nouveau personnage" [routerLink]="['new/character', {outlets : { form : 'identite'}}]" icon="pi pi-plus" iconPos="right">
           </p-button>
       </div>
       </div>

@@ -6,7 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/firestore';
+import { AngularFireAuthModule, USE_DEVICE_LANGUAGE, SETTINGS as AUTH_SETTINGS,USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/auth';
+import { AngularFireFunctions, USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/functions'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,9 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { environment } from 'src/environments/environment';
-
-import { USE_DEVICE_LANGUAGE, SETTINGS as AUTH_SETTINGS, AngularFireAuthModule } from '@angular/fire/auth';
-import { PrimeNGModule } from './primeNg.module';
+import { PrimeNGModule } from './shared/primeNg.module';
 import { AuthService } from './shared/services/auth.service';
 import { MessageService } from 'primeng/api';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
@@ -34,6 +34,10 @@ import { InventoryComponent } from './components/character-sheet/inventory/inven
 import { ToastModule } from 'primeng/toast';
 import { SpecialSkillsComponent } from './components/character-sheet/special-skills/special-skills.component';
 import { SpecialSkillModalComponent } from './shared/modals/special-skill-modal/special-skill-modal.component';
+import { SharedModule } from './shared/shared.module';
+import { AdminModule } from './admin/admin.module';
+import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,6 @@ import { SpecialSkillModalComponent } from './shared/modals/special-skill-modal/
     HomeComponent,
     RegisterComponent,
     VerifyEmailComponent,
-    ShellComponent,
     CharacterSheetComponent,
     NewCharacterFormComponent,
     IdentiteFormComponent,
@@ -58,23 +61,22 @@ import { SpecialSkillModalComponent } from './shared/modals/special-skill-modal/
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    SharedModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    PrimeNGModule,
-    ToastModule
-
+    AdminModule,
+    ProfileModule
   ],
   providers: [
-    AuthGuard,
     AuthService,
     MessageService,
     DialogService,
     { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: true } },
-    { provide: USE_DEVICE_LANGUAGE, useValue: true }
+    { provide: USE_DEVICE_LANGUAGE, useValue: true },
+    { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost',9099] : undefined},
+    { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost',8080] : undefined},
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost',5001] : undefined}
   ],
   bootstrap: [AppComponent]
 })

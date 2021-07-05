@@ -32,7 +32,7 @@
             <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal" [step]="1"
               decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
               incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="healthPoint"
-              [max]="currentCharacter.maxHealthPoint">
+              [max]="currentCharacter.identite.maxHealthPoint">
             </p-inputNumber>
           </div>
           <div class="p-field p-col">
@@ -45,11 +45,11 @@
         </div>
       </div>
     </form>
-    <ng-container *ngIf='currentCharacter && currentCharacter.healthPoint && currentCharacter.maxHealthPoint'>
+    <ng-container *ngIf='currentCharacter && currentCharacter.identite.healthPoint && currentCharacter.identite.maxHealthPoint'>
       <div class="p-field p-col-12 p-md-4">
         <h5 class="p-mt-3">Points de vie :</h5>
-        <p-knob [(ngModel)]="currentCharacter.healthPoint" [min]="0" [max]="currentCharacter.maxHealthPoint"
-          valueColor="#db2140" [valueTemplate]="currentCharacter.healthPoint+'/'+currentCharacter.maxHealthPoint"
+        <p-knob [(ngModel)]="currentCharacter.identite.healthPoint" [min]="0" [max]="currentCharacter.identite.maxHealthPoint"
+          valueColor="#db2140" [valueTemplate]="currentCharacter.identite.healthPoint+'/'+currentCharacter.identite.maxHealthPoint"
           [readonly]="true">
         </p-knob>
       </div>

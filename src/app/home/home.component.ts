@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
 import { CharacterService } from '../shared/services/character.service';
 import { Character } from '../shared/services/models/character';
@@ -9,10 +9,9 @@ import { Character } from '../shared/services/models/character';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
 
-  characters: Character[];
-  charactersSub: Subscription
+  characters: Observable<Character[]>;
 
   constructor(public authService: AuthService, private characterService: CharacterService) {
   }
@@ -23,14 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   reloadCharacters() {
-    this.charactersSub = this.characterService.loadCharacters().subscribe(characters => {
-      this.characters = characters;
-    });
+    this.characters = this.characterService.loadCharacters()
   }
 
-  ngOnDestroy(): void {
-    if (this.charactersSub) {
-      this.charactersSub.unsubscribe();
-    }
-  }
 }

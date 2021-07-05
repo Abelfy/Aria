@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { convertSnaps } from './db-utils';
+import { convertSnaps } from './helpers/db-utils';
 import { SpecialSkill } from './models/character';
 
 @Injectable({
@@ -16,7 +16,6 @@ export class SpecialSkillService {
   }
 
   createSpecialSkill(charId: string,data: SpecialSkill) {
-    data.id = this.db.createId();
     return this.db.collection(`/users/${this.authService.userData.uid}/characters/${charId}/special-skills`).add(data)
   }
 

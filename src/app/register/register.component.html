@@ -25,8 +25,8 @@
         </div>
         <ng-template pTemplate="footer">
             <div class="p-fluid p-formgrid p-grid">
-                <p-button label="S'enregister" class="p-m-auto" [disabled]="!registerForm.valid" (click)="authSrv.SignUp(registerForm.controls['email'].value, registerForm.controls['email'].value)"></p-button>
-                <p-button [routerLink]="['/login']" label="J'ai déja un compte" class="p-m-auto"></p-button>
+                <p-button label="S'enregister" class="p-m-auto" [disabled]="!registerForm.valid" (click)="register()"></p-button>
+                <p-button [routerLink]="['/login']" label="J'ai déja un compte" class="p-m-auto" styleClass="p-button-link"></p-button>
             </div>
         </ng-template>
     </p-panel>

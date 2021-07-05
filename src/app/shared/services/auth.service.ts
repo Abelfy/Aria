@@ -5,8 +5,8 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { MessageService } from 'primeng/api';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AuthInfo } from './models/authInfo';
 
 @Injectable({
@@ -33,6 +33,9 @@ export class AuthService {
     ) {
         /* Saving user data in localstorage when 
         logged in and setting up null when logged out */
+        from(this.afAuth.currentUser).subscribe( data => {
+            console.log(data);
+        })
         this.afAuth.authState.subscribe(user => {
             if (user) {
                 this.userData = user;
@@ -50,35 +53,31 @@ export class AuthService {
         this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn));
 
         this.pictureUrl$ = afAuth.authState.pipe(map(user => user ? user.photoURL : null));
-
     }
 
     // Sign in with email/password
-    SignIn(email: string, password: string) {
-        return this.afAuth.signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                this.SetUserData(result.user);
-                this.messageService.add({key: 'bc', severity: 'success', summary: 'Vous êtes connecté ! '});
-                this.ngZone.run(() => {
-                    this.router.navigate(['home']);
-                });                
-            }).catch((error) => {
-                this.messageService.add({severity:'error', summary: 'Erreur', detail:error.message});
-            })
+    SignIn(email: string, password: string) : Observable<User>{
+
+        return from(this.afAuth.signInWithEmailAndPassword(email,password)).pipe(map(data => {
+            this.SetUserData(data.user);
+            this.ngZone.run(() => {
+                this.router.navigate(['home']);
+            });
+            return data.user;
+        }))
     }
 
     // Sign up with email/password
     SignUp(email: string, password: string) {
-        return this.afAuth.createUserWithEmailAndPassword(email, password)
-            .then((result) => {
-                /* Call the SendVerificaitonMail() function when new user sign 
-                up and returns promise */
-                this.SendVerificationMail();
-                this.SetUserData(result.user);
-            }).catch((error) => {                
-                this.messageService.add({severity:'error', summary: 'Erreur', detail:error.message});
-                window.alert(error.message)
-            })
+        return from(this.afAuth.createUserWithEmailAndPassword(email, password)).pipe(map(data => {
+            this.SendVerificationMail();
+            this.SetUserData(data.user);
+            this.ngZone.run(() => {
+                this.router.navigate(['home']);
+            });
+            return data.user;
+        }));
+           
     }
 
     // Send email verfificaiton when new user sign up
@@ -100,28 +99,11 @@ export class AuthService {
             })
     }
 
-    // Returns true when user is looged in and email is verified
-    /* get isLoggedIn(): boolean {
-        const user = JSON.parse(localStorage.getItem('user'));
-        return (user !== null && user.emailVerified !== false) ? true : false;
-    } */
-
-    // Auth logic to run auth providers
-    AuthLogin(provider) {
-        return this.afAuth.signInWithPopup(provider)
-            .then((result) => {
-                this.router.navigate(['home']);
-                this.SetUserData(result.user);
-            }).catch((error) => {
-                window.alert(error)
-            })
-    }
-
     /* Setting up user data when sign in with username/password, 
     sign up with username/password and sign in with social auth  
     provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
     SetUserData(user) {
-        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+        const userDoc: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
         const userData: User = {
             uid: user.uid,
             email: user.email,
@@ -129,7 +111,7 @@ export class AuthService {
             photoURL: user.photoURL,
             emailVerified: user.emailVerified
         }
-        return userRef.set(userData, {
+        return userDoc.set(userData, {
             merge: true
         })
     }
@@ -138,27 +120,7 @@ export class AuthService {
     SignOut() {
         return this.afAuth.signOut().then(() => {
             localStorage.removeItem('user');
-            this.router.navigate(['sign-in']);
+            this.router.navigate(['login']);
         })
-    }
-
-    fromFirebaseAuthPromise(promise):Observable<any> {
-
-        const subject = new Subject<any>();
-
-        promise
-            .then(res => {
-                    //const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid);
-                    //this.authInfo$.next(authInfo);
-                    subject.next(res);
-                    subject.complete();
-                },
-                err => {
-                    this.authInfo$.error(err);
-                    subject.error(err);
-                    subject.complete();
-                });
-
-        return subject.asObservable();
     }
 }

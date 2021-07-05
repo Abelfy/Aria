@@ -1,27 +1,16 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-  
-      <div class="authBlock">
-        <h3>Thank You for Registering</h3>
-  
-        <div class="formGroup" *ngIf="authService.userData as user">
-          <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
-          <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
-        </div>
-        
-        <!-- Calling SendVerificationMail() method using authService Api -->
-        <div class="formGroup">
-          <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
-            <i class="fas fa-redo-alt"></i>
-            Resend Verification Email
-          </button>
-        </div>
-  
-      </div>
-  
-      <div class="redirectToLogin">
-        <span>Go back to?<span class="redirect" routerLink="/sign-in"> Sign in</span></span>
-      </div>
-  
-    </div>
-  </div>
+<p-panel>
+  <ng-template pTemplate="header">
+    Merci de vous être enregisté !
+  </ng-template>
+  <ng-container *ngIf="authService.userData as user">
+    <p class="text-center">Un mail de confirmation à été envoyé à : <strong>{{user.email}}</strong>.</p>
+    <p class="text-center">Vérifier votre boite mail et cliquez sur le lien pour valider votre enregistrement.</p>
+  </ng-container>
+  <ng-template pTemplate="footer">
+    <p-button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
+      <i class="fas fa-redo-alt"></i>
+      Renvoyer un mail de confirmation
+    </p-button>
+    <p-button label="Retourner à la page de login ?" class="p-m-auto" styleClass="p-button-link"></p-button>
+  </ng-template>
+</p-panel>

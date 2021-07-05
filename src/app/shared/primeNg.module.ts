@@ -23,6 +23,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { KnobModule } from 'primeng/knob';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 const modules = [
@@ -46,7 +47,8 @@ const modules = [
     DynamicDialogModule,
     KnobModule,
     AvatarModule,
-    AvatarGroupModule
+    AvatarGroupModule,
+    FileUploadModule
 ]
 
 @NgModule({

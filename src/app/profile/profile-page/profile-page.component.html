@@ -1,0 +1,28 @@
+<div class="content">
+    <p-card class="p-m-2" header="Feuille de personnage">
+        <form *ngIf="profileForm" [formGroup]="profileForm">
+            <div class="p-fluid">
+                <div class="p-grid">
+                    <div class="p-field p-col">
+                        <label>Pseudo :</label>
+                        <input type="text" pInputText formControlName="displayName">
+                    </div>
+                    <div class="p-field p-col">
+                        <label>Email :</label>
+                        <input type="text" pInputText formControlName="email">
+                    </div>
+                </div>
+                <!-- <div class="p-grid">
+                    <div class="p-field p-col">
+                        <label><h5>Modifier mon avatar</h5></label>    
+                        <p-fileUpload mode="basic" name="myfile[]" accept="image/*" (click)="onUpload($event)"></p-fileUpload>
+                    </div>
+                </div> -->
+            </div>
+            
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button (onClick)="onSubmit()" >Valider</p-button>
+        </ng-template>
+    </p-card>
+</div>

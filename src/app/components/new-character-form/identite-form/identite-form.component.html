@@ -1,5 +1,36 @@
-<p-card header="Identité">
+<p-card>
+    <ng-template pTemplate="title">
+        Identité du personnage
+    </ng-template>
+    <ng-template pTemplate="subtitle">
+        Présentation de votre personnage
+    </ng-template>
+    <ng-template pTemplate="content">
+        <form *ngIf='idForm' [formGroup]="idForm">
+            <div class="p-fluid">
+                <div class="p-grid">
+                    <div class="p-field p-col">
+                        <label>Prénom :</label>
+                        <input type="text" pInputText formControlName="charFirstname">
+                    </div>
+                    <div class="p-field p-col">
+                        <label>Nom :</label>
+                        <input type="text" pInputText formControlName="charLastname">
+                    </div>
+                    <div class="p-field p-col">
+                        <label>Age :</label>
+                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+                            [step]="1" decrementButtonClass="p-button-outlined" incrementButtonClass="p-button-outlined"
+                            incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" formControlName="age">
+                        </p-inputNumber>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
     <ng-template pTemplate="footer">
-        <p-button label='Suivant' icon="pi pi-angle-right" iconPos="right"></p-button>
+        <div class="p-grid p-nogutter p-justify-end">
+            <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
+        </div>
     </ng-template>
 </p-card>

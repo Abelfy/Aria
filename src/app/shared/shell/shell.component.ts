@@ -19,7 +19,12 @@ export class ShellComponent implements OnInit {
       {
         label: 'Mon profil',
         icon: 'pi pi-user-edit',
-        routerLink: '/profil'
+        routerLink: '/profile'
+      },
+      {
+        label: 'Administration',
+        icon: 'pi pi-cog',
+        routerLink: '/administration'
       },
       {
         label: 'Se déconnecter',
