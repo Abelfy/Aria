@@ -11,7 +11,7 @@ import { Character } from '../shared/services/models/character';
 })
 export class HomeComponent implements OnInit {
 
-  characters: Observable<Character[]>;
+  characters$: Observable<Character[]>;
 
   constructor(public authService: AuthService, private characterService: CharacterService) {
   }
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   reloadCharacters() {
-    this.characters = this.characterService.loadCharacters()
+    this.characters$ = this.characterService.loadCharacters()
   }
 
 }

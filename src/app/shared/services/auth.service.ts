@@ -33,9 +33,6 @@ export class AuthService {
     ) {
         /* Saving user data in localstorage when 
         logged in and setting up null when logged out */
-        from(this.afAuth.currentUser).subscribe( data => {
-            console.log(data);
-        })
         this.afAuth.authState.subscribe(user => {
             if (user) {
                 this.userData = user;
@@ -77,7 +74,6 @@ export class AuthService {
             });
             return data.user;
         }));
-           
     }
 
     // Send email verfificaiton when new user sign up

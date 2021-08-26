@@ -19,6 +19,7 @@ export class CharacterService {
     }
 
     loadCharacters(): Observable<Character[]> {
+        //console.log(this.userRef.ref);
 
         return this.db.collection<Character>(`/characters`, ref => ref.where('owner', '==', this.userRef.ref))
             .get()
@@ -28,12 +29,9 @@ export class CharacterService {
     }
 
     updateCharacter(characterId, changes: Partial<Character>): Observable<any> {
-        //const path = `/characters/${characterId}`;
-        //return this.db.doc<Character>(path).set(character,{merge:true})
-        changes.updatedBy = this.userRef.ref;
+        changes.updatedBy = this.db.doc<User>(`/users/${this.authService.userData.uid}`).ref;
         changes.updatedAt = firebase.default.firestore.Timestamp.fromDate(new Date());
-        console.log(changes);
-        return from(this.db.collection<Character>('character').doc(characterId).update(changes));
+        return from(this.db.collection<Character>('characters').doc(characterId).update(changes));
     }
 
     getCharacterById(id: string): Observable<Character> {

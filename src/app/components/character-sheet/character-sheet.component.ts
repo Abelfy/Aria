@@ -28,7 +28,7 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
   notes: string;
   editState: boolean;
   queryParamsSub: Subscription;
-
+  money=75863;
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,

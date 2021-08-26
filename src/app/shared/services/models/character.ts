@@ -9,6 +9,7 @@ export interface Character {
     stats?: Statistique;
     skills?: Skill;
     notes?: string;
+    money?: number;
     inventory?: Item[];
     availableSkillPoints?: number;
     createdAt?: firebase.default.firestore.Timestamp;

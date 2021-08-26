@@ -280,7 +280,7 @@
       </p-tabPanel>
       <p-tabPanel header="Inventaire">
         <ng-container *ngIf='form'>
-          <app-inventory [disabled]="form.disabled"></app-inventory>
+          <app-inventory [disabled]="form.disabled" [money]="money"></app-inventory>
         </ng-container>
       </p-tabPanel>
       <p-tabPanel header="Notes">

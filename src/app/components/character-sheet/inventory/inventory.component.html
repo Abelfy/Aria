@@ -1,11 +1,46 @@
 <p-card class="p-m-2">
+
     <ng-container *ngIf="items">
+        <p-card class="p-m-2">
+            <form [formGroup]="moneyForm">
+            <ng-template pTemplate="header">
+                Devises
+            </ng-template>
+            <ng-template pTemplate="subtitle">
+                Les conversions de devises sont automatiques.
+            </ng-template>
+            <div class="p-grid p-fluid">
+                <div class="p-field p-col-12 p-md-3">
+                    <label for="moneyCuivre" style="display: block">Sceptre</label>
+                    <p-inputNumber formControlName="moneyCuivre" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+                        inputId="moneyCuivre" incrementButtonIcon="pi pi-plus"
+                        decrementButtonIcon="pi pi-minus" [min]="0" [disabled]="disabled">
+                    </p-inputNumber>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                    <label for="moneyArgent" style="display: block">Orbe</label>
+                    <p-inputNumber formControlName="moneyArgent" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+                        inputId="moneyArgent"  incrementButtonIcon="pi pi-plus"
+                        decrementButtonIcon="pi pi-minus" [min]="0" [disabled]="disabled">
+                    </p-inputNumber>
+                </div>
+                <div class="p-field p-col-12 p-md-3">
+                    <label for="moneyOr" style="display: block">Couronne</label>
+                    <p-inputNumber formControlName="moneyOr" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+                        inputId="moneyOr"  incrementButtonIcon="pi pi-plus"
+                        decrementButtonIcon="pi pi-minus" [min]="0" [disabled]="disabled">
+                    </p-inputNumber>
+                </div>
+            </div>
+        </form>
+        </p-card>
         <p-dataView #dv [value]="items" [lazy]=true [loading]="loading" filterBy="name">
             <ng-template pTemplate="header">
                 <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
                     <span class="p-input-icon-left p-mb-2 p-mb-md-0">
                         <i class="pi pi-search"></i>
-                        <input type="search" pInputText placeholder="Rechercher par nom." (input)="dv.filter($event.target.value)">
+                        <input type="search" pInputText placeholder="Rechercher par nom."
+                            (input)="dv.filter($event.target.value)">
                     </span>
                     <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
                         <p-button icon="pi pi-plus" (click)="showItemModal()" [disabled]="disabled"></p-button>
