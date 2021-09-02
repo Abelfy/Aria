@@ -19,8 +19,6 @@ export class CharacterService {
     }
 
     loadCharacters(): Observable<Character[]> {
-        //console.log(this.userRef.ref);
-
         return this.db.collection<Character>(`/characters`, ref => ref.where('owner', '==', this.userRef.ref))
             .get()
             .pipe(
@@ -64,6 +62,15 @@ export class CharacterService {
             }
         }));
     }
+
+    delete(characterId: string){
+        return from(this.db.doc<Character>(`/characters/${characterId}`).delete())
+    }
+
+    /**
+     * 
+     *  Methode hors API
+     */
 
     calculateSkills(character: Character){
         const { strength, dexterity, stamina, intelligence, charisma } = character.stats;

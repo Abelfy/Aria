@@ -28,7 +28,10 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
   notes: string;
   editState: boolean;
   queryParamsSub: Subscription;
-  money=75863;
+  money=75863; //TODO : Save into char and get it from fb
+  editMode: boolean;
+
+
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
@@ -46,7 +49,6 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
           this.currentCharacter = character;
           this.currentCharacterId = character.id;
           this.notes = this.currentCharacter.notes ? this.currentCharacter.notes : '';
-          this.currentCharacter.inventory = this.currentCharacter.inventory ? this.currentCharacter.inventory : new Array<Item>();
 
           this.idForm = this.fb.group({
             charFirstname: [this.currentCharacter.identite.charFirstname, Validators.required],
@@ -94,12 +96,12 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
             this.skillsForm
           ]);
 
-          this.form.disable();
           this.form.valueChanges.subscribe(values => {
             this.currentCharacter.identite = values[0];
             this.currentCharacter.stats = values[1];
             this.currentCharacter.skills = values[2];
           })
+          this.form.disable();
         } else {
           this.messageService.add({ key: 'bc', severity: "error", summary: 'Impossible de trouver votre personnage :/' })
         }
@@ -111,7 +113,8 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
     this.skillsForm.patchValue(this.characterService.calculateSkills(this.currentCharacter).skills);
   }
 
-  toggleEdit() {
+
+  handleChange(e){
     if (this.form.disabled) {
       this.form.enable();
     } else {
@@ -131,6 +134,9 @@ export class CharacterSheetComponent implements OnInit, OnDestroy {
           console.log(val)
         });
     }
+  }
+  toggleEdit() {
+    
   }
 
   ngOnDestroy(): void {

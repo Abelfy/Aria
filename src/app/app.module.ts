@@ -24,10 +24,6 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { ShellComponent } from './shared/shell/shell.component';
 import { CharacterSheetComponent } from './components/character-sheet/character-sheet.component';
 import { NewCharacterFormComponent } from './components/new-character-form/new-character-form.component';
-import { ConfirmationComponent } from './components/new-character-form/confirmation/confirmation.component';
-import { IdentiteFormComponent } from './components/new-character-form/identite-form/identite-form.component';
-import { StatsFormComponent } from './components/new-character-form/stats-form/stats-form.component';
-import { SkillsFormComponent } from './components/new-character-form/skills-form/skills-form.component';
 import { ItemModalComponent } from './shared/modals/item-modal/item-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { InventoryComponent } from './components/character-sheet/inventory/inventory.component';
@@ -38,6 +34,7 @@ import { SharedModule } from './shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
 import { ProfileModule } from './profile/profile.module';
+import { CombatWeaponComponent } from './components/character-sheet/combat-weapon/combat-weapon.component';
 
 @NgModule({
   declarations: [
@@ -48,14 +45,11 @@ import { ProfileModule } from './profile/profile.module';
     VerifyEmailComponent,
     CharacterSheetComponent,
     NewCharacterFormComponent,
-    IdentiteFormComponent,
-    StatsFormComponent,
-    SkillsFormComponent,
-    ConfirmationComponent,
     ItemModalComponent,
     InventoryComponent,
     SpecialSkillsComponent,
-    SpecialSkillModalComponent
+    SpecialSkillModalComponent,
+    CombatWeaponComponent
   ],
   imports: [
     BrowserModule,

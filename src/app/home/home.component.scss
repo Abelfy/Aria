@@ -1,6 +1,10 @@
 p-card{
     width: 50vw;
 }
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
 
 .character-list-item {
     display: flex;
@@ -8,10 +12,11 @@ p-card{
     padding: 1rem;
     width: 100%;
 
-    img {
-        width: 150px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        margin-right: 2rem;
+    .character-name {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .character-list-detail {

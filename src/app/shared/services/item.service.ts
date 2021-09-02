@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { convertSnaps } from './helpers/db-utils';
@@ -15,27 +15,30 @@ export class ItemService {
 
   }
 
-  createItem(charId: string,data: Item) {
-    return this.db.collection(`/users/${this.authService.userData.uid}/characters/${charId}/items`).add(data)
+  createItem(charId: string, data: Item) {
+    let save$ : Observable<any>;
+    data.id = this.db.createId();
+    save$ = from(this.db.doc<Item>(`/characters/${charId}/items/${data.id}`).set(data))
+    
+    return save$.pipe(map(snap => {
+      return {
+        ... data
+      }
+    }));
   }
-
-  loadCharacterItems(charId: string): Observable<Item[]> {
-    return this.db.collection<Item>(`/users/${this.authService.userData.uid}/characters/${charId}/items`)
+  
+  loadCharacterItems(itemId: string): Observable<Item[]> {
+    return this.db.collection<Item>(`/characters/${itemId}/items`)
       .get()
       .pipe(
         map(result => convertSnaps<Item>(result))
       )
   }
   
-
-  updateItem(charId: string,data: Item): Promise<void> {
-    const path = `/users/${this.authService.userData.uid}/characters/${charId}/items/${data.id}`;
-    console.log(path);
-    return this.db.doc<Item>(path).update(data);
+  updateItem(itemId: string, data: Item): Promise<void> {
+    return this.db.doc<Item>(`/characters/${itemId}/items/${data.id}`).update(data);
   }
-  deleteItem(charId: string, data:Item) : Promise<void> {
-    const path = `/users/${this.authService.userData.uid}/characters/${charId}/items/${data.id}`;
-    console.log(path);
-    return this.db.doc<Item>(`/users/${this.authService.userData.uid}/characters/${charId}/items/${data.id}`).delete();
+  deleteItem(itemId: string, data: Item): Promise<void> {
+    return this.db.doc<Item>(`/characters/${itemId}/items/${data.id}`).delete();
   }
 }

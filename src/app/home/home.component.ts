@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../shared/services/auth.service';
 import { CharacterService } from '../shared/services/character.service';
 import { Character } from '../shared/services/models/character';
@@ -22,7 +23,12 @@ export class HomeComponent implements OnInit {
   }
 
   reloadCharacters() {
-    this.characters$ = this.characterService.loadCharacters()
+    this.characters$ = this.characterService.loadCharacters();
+  }
+
+  deleteCharacter(id:string) {
+    this.characterService.delete(id);
+    this.reloadCharacters();
   }
 
 }

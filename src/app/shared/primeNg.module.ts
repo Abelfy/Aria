@@ -24,7 +24,7 @@ import { KnobModule } from 'primeng/knob';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 const modules = [
     PanelModule,
@@ -48,7 +48,8 @@ const modules = [
     KnobModule,
     AvatarModule,
     AvatarGroupModule,
-    FileUploadModule
+    FileUploadModule,
+    InputSwitchModule
 ]
 
 @NgModule({

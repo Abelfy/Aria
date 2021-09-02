@@ -17,9 +17,12 @@
         <div class="character-list-item">
           <div class="character-list-detail">
             <div class="character-name">
-              <p-button label="{{character.identite.charFirstname}} {{character.identite.charLastname}}"
-                [routerLink]="['character']" [queryParams]="{id: character.id}" styleClass="p-button-link"></p-button>
-              <!-- <h3>{{character.identite.charFirstname}} {{character.identite.charLastname}}</h3> -->
+              <h3>
+                <a [routerLink]="['character']" [queryParams]="{id: character.id}">
+                  {{character.identite.charFirstname}} {{character.identite.charLastname}}
+                </a>
+              </h3>
+              <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-outlined" (click)="deleteCharacter(character.id)"></button>
             </div>
           </div>
         </div>

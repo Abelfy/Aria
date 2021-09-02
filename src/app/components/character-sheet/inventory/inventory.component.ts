@@ -41,14 +41,10 @@ export class InventoryComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
-
-
-    // 50000 => soit 5 gold soit 500 silver soit 50000 copper
     this.moneyForm = this.fb.group({
-      moneyCuivre: [this.previousMoney.moneyCuivre, Validators.required],
-      moneyArgent: [this.previousMoney.moneyArgent, Validators.required],
-      moneyOr: [this.previousMoney.moneyOr, Validators.required],
+      moneyCuivre: [0, Validators.required],
+      moneyArgent: [0, Validators.required],
+      moneyOr: [0, Validators.required],
     });
     
     this.moneyForm.valueChanges.pipe(map(values => {
@@ -84,9 +80,11 @@ export class InventoryComponent implements OnInit {
       });
       ref.onClose.subscribe(item => {
         if (item) {
-          this.itemService.createItem(this.characterId, item)
-          this.messageService.add({ key: 'bc', severity: 'info', summary: 'Object ajouté' });
-          this.items = [...this.items, item];
+          this.itemService.createItem(this.characterId, item).subscribe(result => {
+            this.items = [...this.items, result];
+            this.messageService.add({ key: 'bc', severity: 'info', summary: 'Object ajouté' });
+          });
+          
         }
       })
     }

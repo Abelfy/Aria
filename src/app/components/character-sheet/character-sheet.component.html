@@ -1,7 +1,7 @@
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <ng-container *ngIf='form'>
-      <p-button label="{{form.enabled ? 'Sauver':'Édition'}}" (click)='toggleEdit()' icon="pi pi-user-edit"></p-button>
+      <p-inputSwitch [(ngModel)]="editMode" (onChange)="handleChange($event)"></p-inputSwitch>
     </ng-container>
   </div>
 </p-toolbar>
@@ -278,11 +278,14 @@
           </div>
         </div>
       </p-tabPanel>
+      <p-tabPanel header="Combat & Armes">
+        <app-combat-weapon></app-combat-weapon>
+      </p-tabPanel>
       <p-tabPanel header="Inventaire">
         <ng-container *ngIf='form'>
-          <app-inventory [disabled]="form.disabled" [money]="money"></app-inventory>
+          <app-inventory [disabled]="form.disabled" [money]="currentCharacter.money"></app-inventory>
         </ng-container>
-      </p-tabPanel>
+      </p-tabPanel>      
       <p-tabPanel header="Notes">
         <p-card class="p-m-2" header="Notes">
           <textarea *ngIf='form' [disabled]="form.disabled" pInputTextarea [(ngModel)]="notes"></textarea>
